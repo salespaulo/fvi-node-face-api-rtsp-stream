@@ -17,6 +17,8 @@ faceapi.env.monkeyPatch({ Canvas, Image, ImageData })
 const util = require('util')
 const EventEmitter = require('events').EventEmitter
 
+const fs = require('fs')
+const path = require('path')
 const sharp = require('sharp')
 const moment = require('moment')
 
@@ -71,10 +73,25 @@ const FaceApiRtspStreamConsumer = function (opts = {}) {
 util.inherits(FaceApiRtspStreamConsumer, EventEmitter)
 
 FaceApiRtspStreamConsumer.prototype._load = async function () {
-    await faceapi.nets.mtcnn.loadFromDisk('./src/facial/weights')
-    await faceapi.nets.faceExpressionNet.loadFromDisk('./src/facial/weights')
-    await faceapi.nets.faceLandmark68Net.loadFromDisk('./src/facial/weights')
-    await faceapi.nets.ageGenderNet.loadFromDisk('./src/facial/weights')
+    // Load from source
+    let weightsDir = path.join(path.resolve(), 'src', 'facial', 'weights')
+
+    // Load from node_modules
+    if (!fs.existsSync(weightsDir)) {
+        weightsDir = path.join(
+            path.resolve(),
+            'node_modules',
+            path.basename(path.resolve(path.join(__dirname, '..', '..'))),
+            'src',
+            'facial',
+            'weights'
+        )
+    }
+
+    await faceapi.nets.mtcnn.loadFromDisk(weightsDir)
+    await faceapi.nets.faceExpressionNet.loadFromDisk(weightsDir)
+    await faceapi.nets.faceLandmark68Net.loadFromDisk(weightsDir)
+    await faceapi.nets.ageGenderNet.loadFromDisk(weightsDir)
 
     this.emit('load', { stream: this.stream })
 }
