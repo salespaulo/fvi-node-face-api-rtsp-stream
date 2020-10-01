@@ -9,6 +9,17 @@ The Node Face API RTSP Stream library uses [face-api.js](https://justadudewhohac
 # How to Use
 
 ```bash
+mkdir test-face-detect
+cd test-face-detect
+npm init -y
+npm install --save fvi-node-face-api-rtsp-stream
+```
+
+## Dev
+
+```bash
+git clone https://github.com/salespaulo/fvi-node-face-api-rtsp-stream
+cd fvi-node-face-api-rtsp-stream
 npm install
 npm run dev
 # OR
