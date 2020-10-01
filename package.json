@@ -6,12 +6,11 @@
     "prettier": "fvi-prettier-config",
     "scripts": {
         "compile": "grunt compile",
-        "build": "grunt compile build",
         "test": "grunt test",
         "debug-test": "grunt debug-test",
         "dev": "grunt dev",
         "debug-dev": "grunt debug-dev",
-        "prod": "grunt prod",
+        "build": "grunt compile build",
         "release": "grunt version && grunt release",
         "release:minor": "grunt version:minor && grunt release:minor",
         "release:major": "grunt version:major && grunt release:major",
