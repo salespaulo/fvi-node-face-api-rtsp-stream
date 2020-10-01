@@ -1,6 +1,6 @@
 # Requirements
 
--   Requires [ffmpeg](https://ffmpeg.org/).
+-   [FFmpeg](https://ffmpeg.org/).
 
 # About
 

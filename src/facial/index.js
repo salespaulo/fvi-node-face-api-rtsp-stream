@@ -32,14 +32,6 @@ const FaceApiRtspStreamConsumer = function (opts = {}) {
     }
 
     this.options = {
-        mtcnn: opts.mtcnn
-            ? {
-                  maxNumScales: opts.mtcnn.maxNumScales || 10,
-                  scaleFactor: opts.mtcnn.scaleFactor || 0.709,
-                  scoreThresholds: opts.mtcnn.scoreThresholds || [0.6, 0.7, 0.7],
-                  minFaceSize: opts.mtcnn.minFaceSize || 20,
-              }
-            : false,
         score: opts.score || 0.5,
         ...opts,
     }
@@ -57,8 +49,22 @@ const FaceApiRtspStreamConsumer = function (opts = {}) {
                 '-update': 1,
             },
         })
-    } else if (this.options && this.options.stream) {
-        this.stream = this.options.stream
+
+        if (this.options.jsmpegPort) {
+            this.streamJsmpeg = new Stream({
+                name: this.options.name,
+                streamUrl: this.options.url,
+                wsPort: this.options.jsmpegPort,
+                ffmpegOptions: {
+                    '-stats': '',
+                    '-r': 30,
+                    '-f': 'mpegts',
+                    '-codec:v': 'mpeg1video',
+                    '-codec:a': 'mp2',
+                    '-bf': 0,
+                },
+            })
+        }
     } else {
         const message = 'Facial Api Rtsp Stream Consumer - Loading Failed!'
         this.emit('error', { name: this.options.name, message })
@@ -103,11 +109,8 @@ FaceApiRtspStreamConsumer.prototype._faceDetect = async function () {
     const detectedAt = moment().format()
     const img = await canvas.loadImage(this.buff)
 
-    // TODO MTCNN Go to deprecated
-    // const options = this.options.mtcnn ? new faceapi.MtcnnOptions(this.options.mtcnn) : false
     const detections = await faceapi
         .detectAllFaces(img, new faceapi.TinyFaceDetectorOptions())
-        // TODO: Config data into props
         .withFaceLandmarks()
         .withFaceExpressions()
         .withAgeAndGender()
@@ -207,6 +210,10 @@ FaceApiRtspStreamConsumer.prototype.start = async function () {
 
 FaceApiRtspStreamConsumer.prototype.stop = function () {
     this.emit('stop', { name: this.options.name, buffer: this.buff })
+    if (this.streamJsmpeg) {
+        this.streamJsmpeg.stop()
+    }
+
     this.stream.stop()
     this._clear()
 }
