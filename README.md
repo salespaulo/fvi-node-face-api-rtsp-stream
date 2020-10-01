@@ -22,7 +22,7 @@ const instance = FaceApiRtspStream({
 
 # Lab
 
-Into directory `lab` you find tests with this library using [WebSocket]https://github.com/websockets/ws) and [jsmpeg.js]https://github.com/phoboslab/jsmpeg). Let's look join it!
+Into directory `lab` you find tests with this library using [WebSocket](https://github.com/websockets/ws) and [jsmpeg.js](https://github.com/phoboslab/jsmpeg). Let's look join it!
 
 -   ws-index.test.js: Starts `fvi-node-face-api-rtsp-stream`, collects face detects, draw details and send, `WebSocket.socket.send`, buffered image to `ws-index.html`.
 
