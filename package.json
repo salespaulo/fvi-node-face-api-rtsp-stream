@@ -1,6 +1,6 @@
 {
     "name": "fvi-node-face-api-rtsp-stream",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "FVI - Node Face API RTSP Stream Consumer",
     "main": "src/index.js",
     "prettier": "fvi-prettier-config",

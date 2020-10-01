@@ -30,6 +30,10 @@ const FaceApiRtspStream = require('../src')
 server.listen(8081)
 
 app.get('/', function (req, res) {
+    res.sendFile(__dirname + '/jsmpeg-index.html')
+})
+
+app.get('/detects', function (req, res) {
     res.sendFile(__dirname + '/ws-index.html')
 })
 
@@ -39,7 +43,8 @@ app.get('/jsmpeg.min.js', function (req, res) {
 
 const faceDetect = FaceApiRtspStream({
     url: 'rtsp://localhost:8554/cam',
-    port: 6789,
+    port: 4041,
+    jsmpegPort: 5041,
     weightsDir,
 })
 
@@ -62,8 +67,9 @@ faceDetect.on('detect', event => {
     console.log('> DETECTED:', event.name, ':', event.data.detectedAt)
 
     try {
-        const face = event.data.face
-        const out = event.data.out
+        const data = event.data
+        const face = data.face
+        const out = data.out
 
         faceapi.draw.drawDetections(out, [face.detection])
         faceapi.draw.drawFaceExpressions(out, [face])
@@ -81,14 +87,14 @@ faceDetect.on('detect', event => {
         controller.emit('socket', out.toBuffer())
 
         /* Save images on disk
-            sharp(event.data.image)
+            sharp(data.image)
                 .clone()
-                .toFile(`img-${event.data.detectedAt}.jpeg`)
+                .toFile(`img-${data.detectedAt}.jpeg`)
                 .then(res => console.log('> Save image!'))
                 .catch(e => console.error(e))
-            sharp(event.data.imageCropped)
+            sharp(data.imageCropped)
                 .clone()
-                .toFile(`cropped-${event.data.detectedAt}.jpeg`)
+                .toFile(`cropped-${data.detectedAt}.jpeg`)
                 .then(res => console.log('> Save image cropped!'))
                 .catch(e => console.error(e))
             */
@@ -96,6 +102,7 @@ faceDetect.on('detect', event => {
         console.error(e)
     }
 })
+
 const wsServer = new WebSocket.Server({
     port: 6790,
 })
