@@ -64,11 +64,12 @@ instance.on('stop', event => console.log(event))
 
 # Lab
 
-Into directory `lab` you find tests with this library using [WebSocket](https://github.com/websockets/ws) and [jsmpeg.js](https://github.com/phoboslab/jsmpeg). Let's look join it!
+Into directory `lab` you find tests with this library using [WebSocket](https://github.com/websockets/ws) and [jsmpeg.js](https://github.com/phoboslab/jsmpeg). Let's join it!
 
--   ws-index.test.js: Starts `fvi-node-face-api-rtsp-stream`, collects face detects, draw details and send, `WebSocket.socket.send`, buffered image to `ws-index.html`.
+-   _index.js_: Starts `fvi-node-face-api-rtsp-stream`, collects face detects, draw details and send, `WebSocket.socket.send`, buffered image to `ws-index.html`.
 
--   ws-index.html: Connects to WebSocket, get buffered images and show.
+-   _ws-index.html_: Connects via [WebSocket](https://github.com/websockets/ws), get buffered images with detections and show.
+-   _jmpeg-index.html_: Connects via [jsmpeg.js](https://github.com/phoboslab/jsmpeg), nd show.
 
 ## Run
 
