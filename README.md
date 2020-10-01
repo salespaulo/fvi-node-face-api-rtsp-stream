@@ -8,6 +8,13 @@ The Node Face API RTSP Stream library uses [face-api.js](https://justadudewhohac
 
 # How to Use
 
+```bash
+npm install
+npm run dev
+# OR
+npm run test
+```
+
 ## Instantiate
 
 ```javascript
