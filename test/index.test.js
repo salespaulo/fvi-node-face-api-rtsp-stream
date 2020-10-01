@@ -9,8 +9,8 @@ describe(`Testing`, () => {
 
         let count = 0
 
-        instance.on('detect', event => {
-            console.log('> detect:', event.name, ':', event.data.detectedAt)
+        instance.on('data', event => {
+            console.log('> name:', event.name, ': size: ', event.buffer.length)
             count += 1
 
             if (count === 3) {
@@ -31,7 +31,7 @@ describe(`Testing`, () => {
                 console.log('> Start face detect', res)
                 setTimeout(() => {
                     instance.stop()
-                    done(`Not Detected Faces`)
+                    done(`Not Data Receive!`)
                 }, 3000)
             })
             .catch(e => done(e))
