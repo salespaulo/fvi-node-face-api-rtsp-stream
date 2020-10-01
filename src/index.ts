@@ -23,6 +23,7 @@ interface RtspStreamOpts {
     port: Number
     stream: VideoStream
     score: Number
+    weightsDir: String
     mtcnn: MtcnnOpts
 }
 

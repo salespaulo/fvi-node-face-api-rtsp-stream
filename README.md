@@ -1,3 +1,7 @@
+# Requirements
+
+-   Requires [ffmpeg]https://ffmpeg.org/).
+
 # About
 
 The Node Face API RTSP Stream library uses [face-api.js](https://justadudewhohacks.github.io/face-api.js/docs/index.html) and [node-rtsp-stream]https://github.com/kyriesent/node-rtsp-stream#readme) to consumes data messages from RTSP Stream and detect faces on it.

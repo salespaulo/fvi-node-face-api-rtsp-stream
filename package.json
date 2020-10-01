@@ -39,6 +39,9 @@
         "node-rtsp-stream": "0.0.9"
     },
     "devDependencies": {
+        "express": "^4.17.1",
+        "http": "0.0.1-security",
+        "ws": "^7.3.1",
         "chai": "^4.2.0",
         "@babel/cli": "^7.11.6",
         "@babel/core": "^7.11.6",
