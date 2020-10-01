@@ -207,6 +207,7 @@ FaceApiRtspStreamConsumer.prototype.start = async function () {
 
 FaceApiRtspStreamConsumer.prototype.stop = function () {
     this.emit('stop', { name: this.options.name, buffer: this.buff })
+    this.stream.stop()
     this._clear()
 }
 

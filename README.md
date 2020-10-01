@@ -4,20 +4,44 @@
 
 # About
 
-The Node Face API RTSP Stream library uses [face-api.js](https://justadudewhohacks.github.io/face-api.js/docs/index.html) and [node-rtsp-stream]https://github.com/kyriesent/node-rtsp-stream#readme) to consumes data messages from RTSP Stream and detect faces on it.
+The Node Face API RTSP Stream library uses [face-api.js](https://justadudewhohacks.github.io/face-api.js/docs/index.html) and [node-rtsp-stream](https://github.com/kyriesent/node-rtsp-stream#readme) to consumes data messages from RTSP Stream and detect faces on it.
 
 # How to Use
+
+## Instantiate
 
 ```javascript
 const FaceApiRtspStream = require('fvi-node-face-api-rtsp-stream')
 
 const instance = FaceApiRtspStream({
-    name: '',
-    url: '',
+    name: 'ID',
+    url: 'rtsp://',
     port: 6789,
     score: 0.5,
     stream: 'new node-rtsp-stream/videoStream()',
 })
+```
+
+## Starting/Stoping
+
+```javascript
+instance
+    .start()
+    .then(res => console.log('Initializate'))
+    .catch(e => console.error(e))
+
+instance.stop()
+```
+
+## Events
+
+```javascript
+instance.on('error', e => console.error(e))
+instance.on('warn', message => console.log(message))
+instance.on('data', event => console.log(event))
+instance.on('detect', event => console.log(event))
+instance.on('start', event => console.log(event))
+instance.on('stop', event => console.log(event))
 ```
 
 # Lab
