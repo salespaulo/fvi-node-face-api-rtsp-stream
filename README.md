@@ -1,6 +1,8 @@
 # Requirements
 
 -   [FFmpeg](https://ffmpeg.org/).
+-   See [rtsp-simple-server](https://github.com/aler9/rtsp-simple-server)
+-   Configure [RTSP Web Cam](https://github.com/aler9/rtsp-simple-server#serve-a-webcam)
 
 # About
 
